@@ -1,0 +1,55 @@
+<div *ngIf="ferror" class="alert alert-danger ">
+    <strong>Error!</strong>La fecha no puede ser mayor o igual a la de hoy.
+</div>
+<div *ngIf="serror" class="alert alert-danger ">
+    <strong>Error!</strong>el salario no puede ser mayor a $100.000.000
+</div><div class="container">
+    <div class="starter-template">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <h1>{{ titulo }} </h1>
+                <form [formGroup]="credito" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Nit de la empresa</label>
+                        <input type="number" formControlName="Nit" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.Nit.errors }" />
+                        <div *ngIf="submitted && f.Nit.errors" class="invalid-feedback">
+                            <div *ngIf="f.Nit.errors.required">Por favor, ingresa tu NIT</div>
+                            <div *ngIf="f.Nit.hasError('pattern')">Por favor, ingrese numero valido</div>
+                            <div *ngIf="f.Nit.hasError('minlength')">Minimo 6 digitos</div>
+                            <div *ngIf="f.Nit.hasError('maxlength')">Maximo 11 digitos</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre de la empresa</label>
+                        <input type="text" formControlName="NombreEmpresa" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.NombreEmpresa.errors }" />
+                        <div *ngIf="submitted && f.NombreEmpresa.errors" class="invalid-feedback">
+                            <div *ngIf="f.NombreEmpresa.errors.required">Por favor, ingresa el Nombre de la empresa</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Salario</label>
+                        <input type="" #salario formControlName="Salario" class="form-control" (keyup)="format(salario)" 
+                            [ngClass]="{ 'is-invalid': submitted && f.Salario.errors }" />
+                        <div *ngIf="submitted && f.Salario.errors" class="invalid-feedback">
+                            <div *ngIf="f.Salario.errors.required">Por favor, ingresa su Salario</div>
+                            <div *ngIf="f.Salario.hasError('pattern')">Por favor, ingrese numero valido</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Ingreso</label>
+                        <input type="date" formControlName="FechaIngreso" class="form-control" max={{max}}
+                            [ngClass]="{ 'is-invalid': submitted && f.FechaIngreso.errors }" />
+                        <div *ngIf="submitted && f.FechaIngreso.errors" class="invalid-feedback">
+                            <div *ngIf="f.FechaIngreso.errors.required">Por favor, ingresa una fecha valida</div>
+                            <div *ngIf="mEdad">Eres menor de edad no puedes proceder </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button disabled={{loading}} class="btn btn-primary">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

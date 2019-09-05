@@ -1,0 +1,47 @@
+<div *ngIf="mEdad" class="alert alert-danger ">
+    <strong>Error!</strong>No Cumples con la edad para solicitar un credito.
+</div>
+<div *ngIf="merror" class="alert alert-danger ">
+    <strong>Error!</strong>     El Usuario ya se encuentra registrado
+</div>
+<div class="container">
+    <div class="starter-template">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <h1>{{ titulo }} </h1>
+                <form [formGroup]="contacto" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>identificacion</label>
+                        <input type="number" formControlName="identificacion" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.identificacion.errors }" />
+                        <div *ngIf="submitted && f.identificacion.errors" class="invalid-feedback">
+                            <div *ngIf="f.identificacion.errors.required">Por favor, ingresa tu identificacion</div>
+                            <div *ngIf="f.identificacion.hasError('pattern')">Por favor, ingrese numero valido</div>
+                            <div *ngIf="f.identificacion.hasError('minlength')">Minimo 6 digitos</div>
+                            <div *ngIf="f.identificacion.hasError('maxlength')">Maximo 10 digitos</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombres y Apellidos</label>
+                        <input type="text" formControlName="nya" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.nya.errors }" />
+                        <div *ngIf="submitted && f.nya.errors" class="invalid-feedback">
+                            <div *ngIf="f.nya.errors.required">Por favor, ingresa tus Nombres y Apellidos</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de nacimiento</label>
+                        <input type="date" formControlName="Fechadenacimiento" class="form-control" max={{max}}
+                            [ngClass]="{ 'is-invalid': submitted && f.Fechadenacimiento.errors }" />
+                        <div *ngIf="submitted && f.Fechadenacimiento.errors" class="invalid-feedback">
+                            <div *ngIf="f.Fechadenacimiento.errors.required">Por favor, ingresa una fecha valida</div>
+                            <div *ngIf="mEdad">Eres menor de edad no puedes proceder </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" class="btn btn-primary">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
